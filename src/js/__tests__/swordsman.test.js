@@ -1,4 +1,4 @@
-import { typeSwordsman } from '../swordsman';
+import Swordsman from '../swordsman';
 
 test('testing metods', () => {
   const expected = {
@@ -9,7 +9,7 @@ test('testing metods', () => {
     attack: 48,
     defence: 12,
   };
-  const result = typeSwordsman('Andrei', 'Swordsman');
+  const result = new Swordsman('Andrei');
   result.health = 10;
   result.levelUp();
   const received = result;
@@ -18,8 +18,16 @@ test('testing metods', () => {
 
 test('testing metods', () => {
   expect(() => {
-    const result = typeSwordsman('Andrei', 'Swordsman');
+    const result = new Swordsman('Andrei');
     result.health = 0;
+    result.levelUp();
+  }).toThrow();
+});
+
+test('testing metods', () => {
+  expect(() => {
+    const result = new Swordsman('Andrei');
+    result.health = -1;
     result.levelUp();
   }).toThrow();
 });
@@ -33,7 +41,7 @@ test('testing metods', () => {
     attack: 40,
     defence: 10,
   };
-  const result = typeSwordsman('Andrei', 'Swordsman');
+  const result = new Swordsman('Andrei');
   result.damage(2);
   const received = result;
   expect(received).toEqual(expected);

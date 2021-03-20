@@ -1,4 +1,4 @@
-import { typeZombie } from '../zombie';
+import Zombie from '../zombie';
 
 test('testing metods', () => {
   const expected = {
@@ -9,7 +9,7 @@ test('testing metods', () => {
     attack: 48,
     defence: 12,
   };
-  const result = typeZombie('Andrei', 'Zombie');
+  const result = new Zombie('Andrei');
   result.health = 10;
   result.levelUp();
   const received = result;
@@ -18,8 +18,16 @@ test('testing metods', () => {
 
 test('testing metods', () => {
   expect(() => {
-    const result = typeZombie('Andrei', 'Zombie');
+    const result = new Zombie('Andrei');
     result.health = 0;
+    result.levelUp();
+  }).toThrow();
+});
+
+test('testing metods', () => {
+  expect(() => {
+    const result = new Zombie('Andrei');
+    result.health = -1;
     result.levelUp();
   }).toThrow();
 });
@@ -33,7 +41,7 @@ test('testing metods', () => {
     attack: 40,
     defence: 10,
   };
-  const result = typeZombie('Andrei', 'Zombie');
+  const result = new Zombie('Andrei', 'Zombie');
   result.damage(2);
   const received = result;
   expect(received).toEqual(expected);

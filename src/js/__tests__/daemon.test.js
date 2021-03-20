@@ -1,4 +1,4 @@
-import { typeDaemon } from '../daemon';
+import Daemon from '../daemon';
 
 test('testing metods', () => {
   const expected = {
@@ -9,7 +9,7 @@ test('testing metods', () => {
     attack: 12,
     defence: 48,
   };
-  const result = typeDaemon('Andrei', 'Daemon');
+  const result = new Daemon('Andrei');
   result.health = 10;
   result.levelUp();
   const received = result;
@@ -18,8 +18,16 @@ test('testing metods', () => {
 
 test('testing metods', () => {
   expect(() => {
-    const result = typeDaemon('Andrei', 'Daemon');
+    const result = new Daemon('Andrei');
     result.health = 0;
+    result.levelUp();
+  }).toThrow();
+});
+
+test('testing metods', () => {
+  expect(() => {
+    const result = new Daemon('Andrei');
+    result.health = -1;
     result.levelUp();
   }).toThrow();
 });
@@ -33,7 +41,7 @@ test('testing metods', () => {
     attack: 10,
     defence: 40,
   };
-  const result = typeDaemon('Andrei', 'Daemon');
+  const result = new Daemon('Andrei');
   result.damage(2);
   const received = result;
   expect(received).toEqual(expected);

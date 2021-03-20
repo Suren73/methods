@@ -1,4 +1,4 @@
-import { typeUndead } from '../undead';
+import Undead from '../undead';
 
 test('testing metods', () => {
   const expected = {
@@ -9,7 +9,7 @@ test('testing metods', () => {
     attack: 30,
     defence: 30,
   };
-  const result = typeUndead('Andrei', 'Undead');
+  const result = new Undead('Andrei');
   result.health = 10;
   result.levelUp();
   const received = result;
@@ -18,8 +18,16 @@ test('testing metods', () => {
 
 test('testing metods', () => {
   expect(() => {
-    const result = typeUndead('Andrei', 'Undead');
+    const result = new Undead('Andrei');
     result.health = 0;
+    result.levelUp();
+  }).toThrow();
+});
+
+test('testing metods', () => {
+  expect(() => {
+    const result = new Undead('Andrei');
+    result.health = -1;
     result.levelUp();
   }).toThrow();
 });
@@ -33,38 +41,20 @@ test('testing metods', () => {
     attack: 25,
     defence: 25,
   };
-  const result = typeUndead('Andrei', 'Undead');
+  const result = new Undead('Andrei');
   result.damage(2);
   const received = result;
   expect(received).toEqual(expected);
 });
 
 test('testing the player creation function', () => {
-  expect(() => {
-    typeUndead('A', 'Undead');
-  }).toThrow();
+  expect(() => new Undead('A')).toThrow();
 });
 
 test('testing the player creation function', () => {
-  expect(() => {
-    typeUndead('Andreiiiiii', 'Undead');
-  }).toThrow();
+  expect(() => new Undead('Andreiiiiii')).toThrow();
 });
 
 test('testing the player creation function', () => {
-  expect(() => {
-    typeUndead('Andrei', 'Undead1');
-  }).toThrow();
-});
-
-test('testing the player creation function', () => {
-  expect(() => {
-    typeUndead(10, 'Undead');
-  }).toThrow();
-});
-
-test('testing the player creation function', () => {
-  expect(() => {
-    typeUndead('Andrei', 10);
-  }).toThrow();
+  expect(() => new Undead(10)).toThrow();
 });

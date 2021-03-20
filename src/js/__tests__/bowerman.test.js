@@ -1,4 +1,4 @@
-import { typeBowerman } from '../bowerman';
+import Bowerman from '../bowerman';
 
 test('testing metods', () => {
   const expected = {
@@ -9,7 +9,7 @@ test('testing metods', () => {
     attack: 30,
     defence: 30,
   };
-  const result = typeBowerman('Andrei', 'Bowman');
+  const result = new Bowerman('Andrei');
   result.health = 10;
   result.levelUp();
   const received = result;
@@ -18,8 +18,16 @@ test('testing metods', () => {
 
 test('testing metods', () => {
   expect(() => {
-    const result = typeBowerman('Andrei', 'Bowman');
+    const result = new Bowerman('Andrei', 'Bowman');
     result.health = 0;
+    result.levelUp();
+  }).toThrow();
+});
+
+test('testing metods', () => {
+  expect(() => {
+    const result = new Bowerman('Andrei', 'Bowman');
+    result.health = -1;
     result.levelUp();
   }).toThrow();
 });
@@ -33,38 +41,20 @@ test('testing metods', () => {
     attack: 25,
     defence: 25,
   };
-  const result = typeBowerman('Andrei', 'Bowman');
+  const result = new Bowerman('Andrei');
   result.damage(2);
   const received = result;
   expect(received).toEqual(expected);
 });
 
 test('testing the player creation function', () => {
-  expect(() => {
-    typeBowerman('A', 'Bowman');
-  }).toThrow();
+  expect(() => new Bowerman('A')).toThrow();
 });
 
 test('testing the player creation function', () => {
-  expect(() => {
-    typeBowerman('Andreiiiiii', 'Bowman');
-  }).toThrow();
+  expect(() => new Bowerman('Andreiiiiii')).toThrow();
 });
 
 test('testing the player creation function', () => {
-  expect(() => {
-    typeBowerman('Andrei', 'Bowman1');
-  }).toThrow();
-});
-
-test('testing the player creation function', () => {
-  expect(() => {
-    typeBowerman(10, 'Bowman');
-  }).toThrow();
-});
-
-test('testing the player creation function', () => {
-  expect(() => {
-    typeBowerman('Andrei', 10);
-  }).toThrow();
+  expect(() => new Bowerman(10, 'Bowman')).toThrow();
 });
